@@ -1,0 +1,5 @@
+{
+  "permissions": [ "activeTab" ],
+  "name": "https://github.com/spikehuman/stunning-octo-potato",
+  "display": "standalone"
+}
