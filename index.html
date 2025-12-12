@@ -1,33 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Главная страница</title>
-    <script src="https://pxl.demo.altcraft.com/ak_container.js?id=MTIzfDQ=" ></script>
-  </head>
-  <body>
-    <dev>
-        <h>Заголовок</h>
-        <p>Текст</p>
-     <button><a href="https://spikehuman.github.io/stunning-octo-potato/">Жми сюда</a>
-    </button>
-    </dev>        
-<button id="init_sub">Подписаться на уведомления</button> // Кнопка подписки
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Отписка</title>
 
-// ..Основная часть кода..
+  <!-- Обязательный скрипт Altcraft -->
+	<script src="https://pxl.domain.com:80/ak_list_unsubscribe.js?id=MXwy"></script>
+</head>
+<body>
+  <h1>Отписка от рассылки</h1>
+  <p id="status">Загрузка…</p>
 
-<script>
-	document.getElementById('init_sub').addEventListener('click', function() { // По клику на кнопку..
-	try {
-		const akPush = new AKPush();
-		akPush.initSubscription() // ..показать форму подписки
-		}
-	catch (e) {
-		console.log(e); // ..или записать ошибку в консоль браузера
-		}
-	});
-</script>
+  <script>
+    // Из какого параметра берём ID
+    const SOURCE_PARAM = "paramname";
+    // Какой параметр нужен Altcraft
+    const TARGET_PARAM = "send_message_id";
 
-  </body>
+    const url = new URL(window.location.href);
+    const value = url.searchParams.get(SOURCE_PARAM);
+
+    const status = document.getElementById("status");
+
+    if (!value) {
+      status.innerText = "Ссылка некорректна: отсутствует параметр paramname";
+    } else {
+      // добавляем параметр для Altcraft
+      url.searchParams.set(TARGET_PARAM, value);
+
+      history.replaceState({}, "", url.toString());
+
+      status.innerText = "Запрос на отписку обрабатывается…";
+    }
+  </script>
+</body>
 </html>
